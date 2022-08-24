@@ -16,7 +16,7 @@ class CryptoSocket implements MySocketInterface {
 
   private intervalPrice(socket: Socket) {
     this.emitPrices(socket);
-    setInterval(() => this.emitPrices(socket), 20000);
+    setInterval(() => this.emitPrices(socket), 60000);
   }
 
   handleConnection(socket: Socket) {

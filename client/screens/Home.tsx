@@ -37,8 +37,7 @@ export const HomeScreen = ({navigation}: HomeScreenProps) => {
   const [cryptos, setCryptos] = useState(null);
 
   const navigateToDetails = async (id: string) => {
-    console.log(await getCryptoDetail(id));
-    navigation.navigate('Details');
+    navigation.navigate('Detail', {id: id});
   };
 
   useEffect(() => {

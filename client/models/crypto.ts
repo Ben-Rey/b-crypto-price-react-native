@@ -4,26 +4,50 @@ export interface Crypto {
   price: number;
 }
 
-export interface CryptoDetails {
-  Asset: {
-    id: string;
-    serial_id: number;
-    symbol: string;
-    name: string;
-    slug: string;
-    contract_addresses: string;
-    _internal_temp_agora_id: string;
-  };
-  market_data: {
-    price_usd: number;
-    price_btc: number;
-    price_eth: number;
-    volume_last_24_hours: number;
-    real_volume_last_24_hours: number;
-    volume_last_24_hours_overstatement_multiple: number;
-    percent_change_usd_last_24_hours: number;
-    percent_change_btc_last_24_hours: number;
-    percent_change_eth_last_24_hours: number;
-    last_trade_at: string;
+export interface CryptoProfile {
+  name: string;
+  symbol: string;
+  profile: {
+    general: {
+      overview: {
+        tagline: string;
+        project_details: string;
+      };
+      background: {
+        background_details: string;
+      };
+    };
   };
 }
+
+export const CryptoProfileInit: CryptoProfile = {
+  name: '',
+  symbol: '',
+  profile: {
+    general: {
+      overview: {
+        tagline: '',
+        project_details: '',
+      },
+      background: {
+        background_details: '',
+      },
+    },
+  },
+};
+
+export interface CryptoMarketData {
+  market_data: {
+    price_usd: number;
+    percent_change_usd_last_1_hour: number;
+    percent_change_usd_last_24_hours: number;
+  };
+}
+
+export const CryptoMarketDataInit: CryptoMarketData = {
+  market_data: {
+    price_usd: 0,
+    percent_change_usd_last_1_hour: 0,
+    percent_change_usd_last_24_hours: 0,
+  },
+};
