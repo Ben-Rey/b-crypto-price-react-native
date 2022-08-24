@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   FlatList,
   Pressable,
@@ -8,19 +8,8 @@ import {
   Text,
 } from 'react-native';
 import {Crypto} from '../models/crypto';
-
-const cryptos: Crypto[] = [
-  {
-    id: '1',
-    name: 'BTC',
-    price: 22000,
-  },
-  {
-    id: '2',
-    name: 'ETH',
-    price: 1000,
-  },
-];
+import SocketContext from '../context/socket.context';
+import {getCryptoDetail} from '../api/crypto.api';
 
 interface HomeScreenProps {
   navigation: any;
@@ -44,12 +33,27 @@ const Item = ({
 };
 
 export const HomeScreen = ({navigation}: HomeScreenProps) => {
-  const navigateToDetails = () => {
+  const socket = useContext(SocketContext);
+  const [cryptos, setCryptos] = useState(null);
+
+  const navigateToDetails = async (id: string) => {
+    console.log(await getCryptoDetail(id));
     navigation.navigate('Details');
   };
 
+  useEffect(() => {
+    socket &&
+      socket.socket.on('crypto', (res: any) => {
+        setCryptos(res);
+      });
+  }, [socket]);
+
   const renderItem = ({item}: {item: Crypto}) => (
-    <Item onPress={navigateToDetails} title={item.name} price={item.price} />
+    <Item
+      onPress={() => navigateToDetails(item.id)}
+      title={item.name}
+      price={item.price}
+    />
   );
 
   return (

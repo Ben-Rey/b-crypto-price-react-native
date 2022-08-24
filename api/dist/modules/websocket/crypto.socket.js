@@ -14,7 +14,7 @@ class CryptoSocket {
     }
     intervalPrice(socket) {
         this.emitPrices(socket);
-        setInterval(() => this.emitPrices(socket), 20000);
+        setInterval(() => this.emitPrices(socket), 30000);
     }
     handleConnection(socket) {
         socket.emit("ping", "Hi! I am a live socket connection");

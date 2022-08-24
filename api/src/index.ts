@@ -15,8 +15,10 @@ app.get("/", (req: Request, res: Response) => {
 
 app.get("/cryptos/profile/:id", async (req: Request, res: Response) => {
   const cryptoId = req.params.id;
-  cryptoId && res.json(await getCryptoDetails(cryptoId));
-  res.json({ error: true, message: "You need to provide an Id" });
+  if (!cryptoId)
+    res.json({ error: true, message: "You need to provide an Id" });
+
+  res.json(await getCryptoDetails(cryptoId));
 });
 
 const server = app.listen(port, () => {
