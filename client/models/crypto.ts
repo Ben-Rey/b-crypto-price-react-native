@@ -7,33 +7,17 @@ export interface Crypto {
 export interface CryptoProfile {
   name: string;
   symbol: string;
-  profile: {
-    general: {
-      overview: {
-        tagline: string;
-        project_details: string;
-      };
-      background: {
-        background_details: string;
-      };
-    };
-  };
+  overview: string;
+  background: string;
+  tagline: string;
 }
 
 export const CryptoProfileInit: CryptoProfile = {
   name: '',
   symbol: '',
-  profile: {
-    general: {
-      overview: {
-        tagline: '',
-        project_details: '',
-      },
-      background: {
-        background_details: '',
-      },
-    },
-  },
+  tagline: '',
+  overview: '',
+  background: '',
 };
 
 export interface CryptoMarketData {

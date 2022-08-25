@@ -2,7 +2,7 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import Websocket from "./modules/websocket/websocket";
 import CryptoSocket from "./modules/websocket/crypto.socket";
-import { getCryptoDetails } from "./modules/crypto-api/cryptoApi";
+import { getMarketData, getProfile } from "./modules/crypto-api/cryptoApi";
 
 dotenv.config();
 
@@ -13,12 +13,22 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript server");
 });
 
+app.get("/cryptos/profile", async (req: Request, res: Response) => {
+  res.json({ error: true, message: "You need to provide an Id" });
+});
+
 app.get("/cryptos/profile/:id", async (req: Request, res: Response) => {
   const cryptoId = req.params.id;
-  if (!cryptoId)
-    res.json({ error: true, message: "You need to provide an Id" });
+  res.json(await getProfile(cryptoId));
+});
 
-  res.json(await getCryptoDetails(cryptoId));
+app.get("/cryptos/market-data", async (req: Request, res: Response) => {
+  res.json({ error: true, message: "You need to provide an Id" });
+});
+
+app.get("/cryptos/market-data/:id", async (req: Request, res: Response) => {
+  const cryptoId = req.params.id;
+  res.json(await getMarketData(cryptoId));
 });
 
 const server = app.listen(port, () => {
